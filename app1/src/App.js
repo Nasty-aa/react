@@ -1,12 +1,12 @@
 import './App.css';
 
+
 function App(props) {
   return (
     <div className="App">
-      <header className="App-header">
-        Текст Выводится
-        <h3>Hello, {props.text}</h3>
-      </header>
+      <p className="p_text">Текст из константы - 
+        <h1 className="h1_text">{props.text}</h1>
+      </p>
     </div>
   );
  }

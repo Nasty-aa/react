@@ -8,8 +8,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
  <React.StrictMode>
-   {/* <App text={text} /> */}
-   <Message text={'Text for Message'}/>
+    <App text={'Text for Message'} />
  </React.StrictMode>,
  document.getElementById("root")
 );
