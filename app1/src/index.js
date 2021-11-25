@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const Message = (props) => {
+  return <p className="p_text">Текст из константы - <h1 className="h1_text">{props.text}</h1></p>
+}
+
 
 
 ReactDOM.render(
