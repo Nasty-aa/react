@@ -31,9 +31,9 @@ function Message(props) {
                 MessageList.map((item)=> <div>{item.text}</div>)
             }
         </div>
-        <form onSubmit={onSubmit} action="">
-            <input type='text' onChange={onChange} value={value}></input>
-            <button type="submit">Отправить</button>
+        <form onSubmit={onSubmit} action="" className="form">
+            <input className="input" type='text' onChange={onChange} value={value}></input>
+            <button className="submit" type="submit">Отправить</button>
         </form>
         </div>
       </div>

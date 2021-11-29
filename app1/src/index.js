@@ -5,7 +5,7 @@ import Message from './components/Message';
 
 ReactDOM.render(
  <React.StrictMode>
-    <Message text={'Text for Message'} />
+    <Message text={'Messanger'} />
  </React.StrictMode>,
  document.getElementById("root")
 );
