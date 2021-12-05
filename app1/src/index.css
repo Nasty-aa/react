@@ -26,11 +26,12 @@ code {
   padding: 10px;
   border-radius: 5px;
   height: 900px;
+  width: 70%;
 }
 
 .form {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin-bottom: 10px;
 }
 
@@ -84,4 +85,12 @@ p{
   margin: 2px;
   color: black;
   font-size: xx-small;
+}
+
+.Container_App{
+  display: flex;
+}
+
+.h1_text {
+  text-align: center;
 }

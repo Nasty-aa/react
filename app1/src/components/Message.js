@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react';
-
+import { TextField, Container, List, ListItem, ListItemText, Button} from '@mui/material';
 
 function Message(props) {
 
@@ -45,20 +45,25 @@ function Message(props) {
 
     return (
       <div className="App">
-        <div className="p_text">
+        <Container className="p_text">
           <h1 className="h1_text">{props.text}</h1>
-        </div>
-        <div>
-        <div className="MesList">
+        </Container>
+        <Container>
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} className="MesList">
             {       
-                MessageList.map((item)=> <div><div className={item.author}><p>{item.author === 'user' ? 'Вы':'Дружелюбный робот'}</p>{item.text}</div></div>)
+                MessageList.map((item)=> 
+                    <ListItem key={MessageList.indexOf(item)}>
+                        <ListItemText
+                            primary={item.author === 'user' ? 'Вы':'Дружелюбный робот'}
+                            secondary={item.text}/>
+                    </ListItem >)
             }
-        </div>
+        </List>
         <form onSubmit={onSubmit} action="#" className="form">
-            <input className="input" type='text' onChange={onChange} value={value}></input>
-            <button className="submit" type="submit">Отправить</button>
+            <TextField variant="outlined" className="input" type='text' onChange={onChange} value={value} focused />
+            <Button className="submit" type="submit" variant="outlined" >Отправить</Button>
         </form>
-        </div>
+        </Container>
       </div>
     );
    }
