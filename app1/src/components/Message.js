@@ -1,13 +1,16 @@
-import {useEffect,useState} from 'react';
+import {useEffect,useState, useRef} from 'react';
 import { TextField, Container, List, ListItem, ListItemText, Button} from '@mui/material';
+
 
 function Message(props) {
 
     const [MessageList, setMessageList] = useState([]);
     const [value, setValue] = useState('');
+    const [input, setInput] = useState('');
 
     const onChange = (event) => {
         setValue(event.target.value);
+        setInput(event.target);
     }
 
     const onSubmit = (event) => {
@@ -20,6 +23,7 @@ function Message(props) {
             })
             setMessageList(copyMessageList);
             setValue('');
+            input.focus();
         }
     }
 
@@ -43,6 +47,7 @@ function Message(props) {
         }}
     },[MessageList])
 
+
     return (
       <div className="App">
         <Container className="p_text">
@@ -60,7 +65,7 @@ function Message(props) {
             }
         </List>
         <form onSubmit={onSubmit} action="#" className="form">
-            <TextField variant="outlined" className="input" type='text' onChange={onChange} value={value} focused />
+            <TextField  variant="outlined" className="input" type='text' onChange={onChange} value={value} autoFocus  />
             <Button className="submit" type="submit" variant="outlined" >Отправить</Button>
         </form>
         </Container>
