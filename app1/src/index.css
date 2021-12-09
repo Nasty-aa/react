@@ -48,7 +48,7 @@ code {
 }
 
 .MesList {
-  height: 740px;
+  height: 700px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
@@ -86,14 +86,56 @@ p{
   font-size: xx-small;
 }
 
-.Container_App{
-  display: flex;
-}
-
 .h1_text {
   text-align: center;
 }
 
 .Chats {
   padding-top: 10px;
+}
+
+.header_links {
+  display: flex;
+}
+
+.header_links_li {
+  margin-left: 20px;
+  display: block;
+}
+
+.header_links_a {
+  text-decoration: none;
+  color: #1976d2;
+}
+
+.Home{
+  margin-top: 40px;
+}
+
+.Home_h1, .Profile_h1{
+  text-align: center;
+}
+
+.Profile {
+  margin-top: 40px;
+}
+
+.Profile_h1{
+  text-align: center;
+}
+
+.ChatsList{
+  display: flex;
+  justify-content: center;
+  height: 700px;
+}
+
+.chatsList_a {
+  text-decoration: none;
+  color: #1976d2;
+}
+
+.Message_link {
+  text-decoration: none;
+  color: #1976d2;
 }
