@@ -1,13 +1,17 @@
-import {useEffect,useState, useRef} from 'react';
+import {useEffect,useState} from 'react';
 import { TextField, Container, List, ListItem, ListItemText, Button} from '@mui/material';
+import {useRouteMatch, Redirect, Link} from 'react-router-dom';
 
 
 function Message(props) {
-
-    const [MessageList, setMessageList] = useState([]);
+    
+    const { url } = useRouteMatch();
+    const ArrUrl = url.split('/');
+    const ChatId = ArrUrl[ArrUrl.length-1];
+    const [MessageList, setMessageList] = useState(props.chats[ChatId]['messages']);
     const [value, setValue] = useState('');
     const [input, setInput] = useState('');
-
+    
     const onChange = (event) => {
         setValue(event.target.value);
         setInput(event.target);
@@ -47,11 +51,15 @@ function Message(props) {
         }}
     },[MessageList])
 
+    if (!ChatId || !props.chats[ChatId]) {
+        return <Redirect to="/nochat" />;
+      }
 
     return (
       <div className="App">
         <Container className="p_text">
-          <h1 className="h1_text">{props.text}</h1>
+            <Link to='/Chat' className="Message_link">Список чатов</Link>
+            <h1 className="h1_text">{props.chats[ChatId]['name']}</h1>
         </Container>
         <Container>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} className="MesList">
