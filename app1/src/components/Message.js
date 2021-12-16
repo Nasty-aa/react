@@ -1,57 +1,58 @@
 import {useEffect,useState} from 'react';
 import { TextField, Container, List, ListItem, ListItemText, Button} from '@mui/material';
 import {useRouteMatch, Redirect, Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {getMessage} from '../store/message/selectors';
+import {useDispatch} from "react-redux";
+import {addMessage} from '../store/message/action'
 
 
-function Message(props) {
-    
+function Message() {
+
+    const dispatch = useDispatch();
     const { url } = useRouteMatch();
     const ArrUrl = url.split('/');
     const ChatId = ArrUrl[ArrUrl.length-1];
-    const [MessageList, setMessageList] = useState(props.chats[ChatId]['messages']);
     const [value, setValue] = useState('');
     const [input, setInput] = useState('');
+    const MessageList1 = useSelector(getMessage)[ChatId]['messages'];
+    const Author = useSelector(getMessage)[ChatId]['name'];
+    const currentChat = useSelector(getMessage)[ChatId];
     
+    const onSave = (idChat,author,value) => {
+      dispatch(addMessage({
+        id: idChat,
+        author: author,
+        message: value,
+      }))
+  }
+
     const onChange = (event) => {
         setValue(event.target.value);
         setInput(event.target);
     }
 
     const onSubmit = (event) => {
-        if(value) {
-            event.preventDefault();
-            const copyMessageList = [...MessageList];
-            copyMessageList.push({
-                author: 'user',
-                text:value,
-            })
-            setMessageList(copyMessageList);
-            setValue('');
-            input.focus();
-        }
+        event.preventDefault();
+        onSave(ChatId,'user',value);
+        setValue('');
+        input.focus();
     }
 
     useEffect(()=>{
-
-        if(MessageList.length !== 0){
-            if(MessageList[MessageList.length-1].author === 'user'){
-            
+        if(MessageList1.length !== 0){
+            if(MessageList1[MessageList1.length-1].author === 'user'){
             const timerId = setTimeout(()=>{
-                const copyMessageList = [...MessageList];
-                copyMessageList.push({
-                    author: 'robot',
-                    text: 'Дождитесь ответа оператора',
-                })
-                setMessageList(copyMessageList);
-            },1500)
+                onSave(ChatId,'robot','Дождитесь ответа оператора');
+            },1000)
 
             return () => {
                 clearTimeout(timerId);
               }
         }}
-    },[MessageList])
+    },[MessageList1])
 
-    if (!ChatId || !props.chats[ChatId]) {
+    if (!ChatId || !currentChat) {
         return <Redirect to="/nochat" />;
       }
 
@@ -59,13 +60,13 @@ function Message(props) {
       <div className="App">
         <Container className="p_text">
             <Link to='/Chat' className="Message_link">Список чатов</Link>
-            <h1 className="h1_text">{props.chats[ChatId]['name']}</h1>
+            <h1 className="h1_text">{Author}</h1>
         </Container>
         <Container>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} className="MesList">
             {       
-                MessageList.map((item)=> 
-                    <ListItem key={MessageList.indexOf(item)}>
+                MessageList1.map((item)=> 
+                    <ListItem key={MessageList1.indexOf(item)}>
                         <ListItemText
                             primary={item.author === 'user' ? 'Вы':'Дружелюбный робот'}
                             secondary={item.text}/>
