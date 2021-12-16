@@ -5,9 +5,16 @@ import Profile from './components/Profile';
 import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 import Home from './components/Home';
 import Chats from './components/Chats';
+import {useDispatch} from "react-redux";
+import {changeCheckbox} from './store/profile/action';
 
 
 function App(props) {
+    const dispatch = useDispatch();
+
+    const onClickProfle = (value) => {
+        dispatch(changeCheckbox(value));
+    }
 
     return (
             <div className="Container_App">
@@ -26,7 +33,7 @@ function App(props) {
                             <Home />
                         </Route>
                         <Route path='/Profile'>
-                            <Profile />
+                            <Profile onClickProfle={onClickProfle}/>
                         </Route>
                         <Route path='/Chat'>
                             <Chats />
