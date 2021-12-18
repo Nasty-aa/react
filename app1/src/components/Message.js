@@ -1,5 +1,5 @@
-import {useEffect,useState} from 'react';
-import { TextField, Container, List, ListItem, ListItemText, Button} from '@mui/material';
+import {useCallback, useEffect,useState} from 'react';
+import {TextField, Container, List, ListItem, ListItemText, Button} from '@mui/material';
 import {useRouteMatch, Redirect, Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {getMessage} from '../store/message/selectors';
@@ -19,13 +19,9 @@ function Message() {
     const Author = useSelector(getMessage)[ChatId]['name'];
     const currentChat = useSelector(getMessage)[ChatId];
     
-    const onSave = (idChat,author,value) => {
-      dispatch(addMessage({
-        id: idChat,
-        author: author,
-        message: value,
-      }))
-  }
+    const onSave = useCallback((idChat,author,value) => {
+        dispatch(addMessageWithThunk(idChat,author,value));
+  },[ChatId, dispatch]);
 
     const onChange = (event) => {
         setValue(event.target.value);
@@ -39,18 +35,16 @@ function Message() {
         input.focus();
     }
 
-    useEffect(()=>{
-        if(MessageList1.length !== 0){
-            if(MessageList1[MessageList1.length-1].author === 'user'){
-            const timerId = setTimeout(()=>{
-                onSave(ChatId,'robot','Дождитесь ответа оператора');
-            },1000)
-
-            return () => {
-                clearTimeout(timerId);
-              }
-        }}
-    },[MessageList1])
+    const addMessageWithThunk = (idChat, author, value) => (dispatch, getState) => {
+        dispatch(addMessage({
+            id: idChat,
+            author: author,
+            message: value,
+          }));
+          if(author !== 'robot' ){
+              setTimeout(() => dispatch(onSave(ChatId,'robot','Дождитесь ответа оператора')), 1500);
+          }
+    }
 
     if (!ChatId || !currentChat) {
         return <Redirect to="/nochat" />;
