@@ -46,7 +46,7 @@ function ChatList() {
               {       
                   ChatsList.map((item)=> 
                     <ListItem key={item.id}>
-                      <Link to={`/Chat/${item.id}`} className="chatsList_a">
+                      <Link to={`/Chat/id${item.id}`} className="chatsList_a">
                         <ListItemText
                             primary={item.name}/>
                       </Link>

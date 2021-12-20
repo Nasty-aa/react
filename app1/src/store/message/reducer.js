@@ -2,15 +2,15 @@ import { ADD_MESSAGE, ADD_MESSAGE_ID, DEL_MESSAGE_ID } from "./action";
 
 const initialState ={
     messageList: {
-        1: {
+        id1: {
           name: "Артур",
           messages: [{ text: "Это первый чат", author: 'user'},{ text: "Замечательно!", author: 'robot'}],
         },
-        2: {
+        id2: {
           name: "Крис",
           messages: [{ text: "Это второй чат!", author: 'robot'},{ text: "ОК", author: 'user'}],
         },
-        3: {
+        id3: {
             name: "Майк",
             messages: [{ text: "Это третий чат!!", author: 'robot'}],
           },
@@ -29,7 +29,7 @@ const chatsReducer = (state = initialState, action) => {
             return copyState;
         }
         case ADD_MESSAGE_ID: {
-            const currentId = action.idChat;
+            const currentId = 'id' + action.idChat;
             const copyState = state;
             copyState.messageList[currentId] = {
                 name: action.author,
@@ -38,9 +38,10 @@ const chatsReducer = (state = initialState, action) => {
             return copyState;
         }
         case DEL_MESSAGE_ID: {
-            const currentId = action.idChat;
+            const currentId = 'id' + action.idChat;
             const copyState = state;
             delete copyState.messageList[currentId];
+            console.log(copyState);
             return copyState;
         }
         default:

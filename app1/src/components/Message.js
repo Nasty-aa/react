@@ -15,8 +15,6 @@ function Message() {
     const ChatId = ArrUrl[ArrUrl.length-1];
     const [value, setValue] = useState('');
     const [input, setInput] = useState('');
-    console.log(ChatId);
-    console.log(useSelector(getMessage));
     const MessageList1 = useSelector(getMessage)[ChatId]['messages'];
     const Author = useSelector(getMessage)[ChatId]['name'];
     const currentChat = useSelector(getMessage)[ChatId];
