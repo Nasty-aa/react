@@ -4,7 +4,7 @@ import {useRouteMatch, Redirect, Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {getMessage} from '../store/message/selectors';
 import {useDispatch} from "react-redux";
-import {addMessage} from '../store/message/action'
+import {addMessageWithThunk} from '../store/message/action'
 
 
 function Message() {
@@ -33,17 +33,6 @@ function Message() {
         onSave(ChatId,'user',value);
         setValue('');
         input.focus();
-    }
-
-    const addMessageWithThunk = (idChat, author, value) => (dispatch, getState) => {
-        dispatch(addMessage({
-            id: idChat,
-            author: author,
-            message: value,
-          }));
-          if(author !== 'robot' ){
-              setTimeout(() => dispatch(onSave(ChatId,'robot','Дождитесь ответа оператора')), 1500);
-          }
     }
 
     if (!ChatId || !currentChat) {

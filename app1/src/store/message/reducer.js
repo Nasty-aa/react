@@ -1,4 +1,4 @@
-import { ADD_MESSAGE } from "./action";
+import { ADD_MESSAGE, ADD_MESSAGE_ID, DEL_MESSAGE_ID } from "./action";
 
 const initialState ={
     messageList: {
@@ -26,6 +26,22 @@ const chatsReducer = (state = initialState, action) => {
                 text: action.chatid.message,
                 author: action.chatid.author,
             })
+            return copyState;
+        }
+        case ADD_MESSAGE_ID: {
+            const currentId = 'id' + action.idChat;
+            const copyState = state;
+            copyState.messageList[currentId] = {
+                name: action.author,
+                messages: [],
+            }
+            return copyState;
+        }
+        case DEL_MESSAGE_ID: {
+            const currentId = 'id' + action.idChat;
+            const copyState = state;
+            delete copyState.messageList[currentId];
+            console.log(copyState);
             return copyState;
         }
         default:

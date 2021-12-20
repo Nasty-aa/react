@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 import AddChats from './AddChats';
 import {useDispatch} from "react-redux";
 import {addChat, delChat} from '../store/chats/action';
+import {addMessageByID, delMessageByID} from '../store/message/action';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {nanoid} from 'nanoid'
 
@@ -24,13 +25,13 @@ function ChatList() {
   const ChatsList = useSelector(getChatList);
   
   const onSaveChat = (value) => {
-    console.log(ChatsList)
     const newChat = {
       name: value,
       id: nanoid(),
     }
     if(value){
-      dispatch(addChat(newChat))
+      dispatch(addChat(newChat));
+      dispatch(addMessageByID(newChat));
     }
 }
 
@@ -50,7 +51,8 @@ function ChatList() {
                             primary={item.name}/>
                       </Link>
                       <IconButton aria-label="delete" color='primary' onClick={() => {
-                          dispatch(delChat(item.id))
+                          dispatch(delChat(item.id));
+                          dispatch(delMessageByID(item.id));
                         }}>
                         <DeleteIcon />
                       </IconButton>

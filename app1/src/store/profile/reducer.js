@@ -7,8 +7,9 @@ const initialState = {
 export const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case PROFCHECKBOX: {
+            console.log(state.trueCheck);
             return {
-                trueCheck: state.trueCheck,
+                trueCheck: !state.trueCheck,
             }
         }
         default: {

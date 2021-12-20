@@ -1,6 +1,5 @@
 export const PROFCHECKBOX = 'PROFCHECKBOX';
 
-export const changeCheckbox = (trueCheck) => ({
+export const changeCheckbox = () => ({
     type: PROFCHECKBOX,
-    trueCheck: trueCheck,
 });

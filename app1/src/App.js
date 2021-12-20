@@ -12,9 +12,9 @@ import {changeCheckbox} from './store/profile/action';
 function App(props) {
     const dispatch = useDispatch();
 
-    const onClickProfle = (value) => {
-        dispatch(changeCheckbox(value));
-    }
+    // const onClickProfle = (value) => {
+    //     dispatch(changeCheckbox(value));
+    // }
 
     return (
             <div className="Container_App">
@@ -33,7 +33,7 @@ function App(props) {
                             <Home />
                         </Route>
                         <Route path='/Profile'>
-                            <Profile onClickProfle={onClickProfle}/>
+                            <Profile />
                         </Route>
                         <Route path='/Chat'>
                             <Chats />

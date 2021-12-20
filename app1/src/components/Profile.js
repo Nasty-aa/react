@@ -1,15 +1,13 @@
-import {useState} from 'react';
 import {Checkbox} from '@mui/material';
+import {changeCheckbox} from '../store/profile/action';
+import {useDispatch} from "react-redux";
 
-function Profile({initialValues,onClickProfle}) {
-  const [isCheck, setisCheck] = useState(initialValues) 
+function Profile() {
+  const dispatch = useDispatch();
     return (
         <div className="Profile">
           <h1 className="Profile_h1">Profile</h1>
-          <Checkbox label="Задание 4" onClick={() => {
-              setisCheck(!isCheck);
-              onClickProfle(isCheck);
-            }}/>
+          <Checkbox label="Задание 4" onClick={() => dispatch(changeCheckbox())}/>
         </div>
       );
 }
