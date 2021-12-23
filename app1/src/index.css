@@ -139,3 +139,13 @@ p{
   text-decoration: none;
   color: #1976d2;
 }
+
+.Error_API {
+  width: 100%;
+  text-align: center;
+}
+
+.Gists {
+  display: flex;
+  flex-direction: column;
+}

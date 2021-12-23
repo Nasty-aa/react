@@ -11,6 +11,7 @@ function AddChats({onSaveChat}) {
     }
 
     const onSubmit = (event) => {
+        event.preventDefault();
         if(value) {
             onSaveChat(value);
             setValue('');
