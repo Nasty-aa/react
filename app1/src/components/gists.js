@@ -20,7 +20,7 @@ function Gists() {
     }, []);
 
     const renderGist = useCallback (
-        (gists) => <ListItem className='gists_li' key={gists.id}>{gists.description}</ListItem>,
+        (gists) => <ListItem className="gists_li" key={gists.id}>{gists.description}</ListItem>,
         []
     );
 
@@ -32,15 +32,15 @@ function Gists() {
     
     if(isError){
         return(
-            <div className='Gists'>
-                <h3 className='Error_API'>Error</h3>
+            <div className="Gists">
+                <h3 className="Error_API">Error</h3>
                 <Button className="submit" type="submit" variant="outlined" color="error" onClick={getData}>Отправить</Button>
             </div>
         )
             
     }
 
-    return <List sx={{ width: '100%', bgcolor: 'gray' }}>{gists.map(renderGist)}</List>;
+    return <List sx={{ width: "100%", bgcolor: "gray" }}>{gists.map(renderGist)}</List>;
 }
   
 export default Gists;

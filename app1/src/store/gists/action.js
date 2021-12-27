@@ -1,6 +1,6 @@
-export const SET_ERROR = "SET_ERROR";
-export const SET_LOADING = "SET_LOADING";
-export const SET_DATA = "SET_DATA";
+export const SET_ERROR = 'SET_ERROR';
+export const SET_LOADING = 'SET_LOADING';
+export const SET_DATA = 'SET_DATA';
 
 export const setLoading = (status) => ({
     type: SET_LOADING,
@@ -17,7 +17,7 @@ export const setData = (gists) => ({
     payload: gists
 });
 
-const GISTS_API = "https://api.github.com/gists/public";
+const GISTS_API = 'https://api.github.com/gists/public';
 
 export const getGistsThunk = async (dispatch) => {
     dispatch(setLoading(true));
