@@ -1,7 +1,7 @@
-import { ADD_CHAT, DELETE_CHAT } from "./action";
+import { ADD_CHAT, DELETE_CHAT, RESET_CHAT} from './action';
 
 const initialState = {
-    chatList: [{id: 1, name: 'Artur'},{id: 2, name: 'Kriss'},{id: 3, name: 'Mike'}]
+    chatList: []
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -14,6 +14,7 @@ const chatReducer = (state = initialState, action) => {
                     {
                         id: action.name.id,
                         name: action.name.name,
+                        key: action.name.idFb,
                     },
                 ]
             }
@@ -23,8 +24,14 @@ const chatReducer = (state = initialState, action) => {
                 chatList: state.chatList.filter((chat) => chat.id != action.chatId)
             }
         }
-        default:
+        case RESET_CHAT: {
+            return {
+                chatList: action.chatList
+            }
+        }
+        default: {
             return state;
+        }
     }
 };
 

@@ -11,7 +11,7 @@ function Chats(props) {
             <ChatsList />
             <div>
                 <Switch>
-                    <Route path='/Chat/:chatId'>
+                    <Route path="/Chat/:chatId">
                             <Message />
                     </Route>
                 </Switch>

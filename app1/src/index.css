@@ -108,11 +108,28 @@ p{
   color: #1976d2;
 }
 
-.Home{
+.Home {
   margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.Home_h1, .Profile_h1{
+.Home-div {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  justify-content: space-around;
+  max-width: 500px;
+}
+
+.Home_h1{
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.Profile_h1 {
   text-align: center;
 }
 
@@ -120,11 +137,11 @@ p{
   margin-top: 40px;
 }
 
-.Profile_h1{
+.Profile_h1 {
   text-align: center;
 }
 
-.ChatsList{
+.ChatsList {
   display: flex;
   justify-content: center;
   height: 700px;
@@ -148,4 +165,22 @@ p{
 .Gists {
   display: flex;
   flex-direction: column;
+}
+
+.signUp_form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  justify-content: space-around;
+  height: 300px;
+}
+
+.signUp_form_h2 {
+  text-align: center;
+}
+
+.signUp_form_h4 {
+  text-align: center;
 }

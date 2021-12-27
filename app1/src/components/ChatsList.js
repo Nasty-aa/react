@@ -4,22 +4,18 @@ import {getChatList} from '../store/chats/selectors';
 import {useSelector} from 'react-redux';
 import AddChats from './AddChats';
 import {useDispatch} from "react-redux";
-import {addChat, delChat} from '../store/chats/action';
-import {addMessageByID, delMessageByID} from '../store/message/action';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {nanoid} from 'nanoid'
-
-const mapStateToProps = (state) => {
-  return {
-    ChatsList: getChatList(state),
-  }
-}
-
-const mapDispatchToProps = {
-  delChat
-}
-
+import {pushChatsToFb, onTrackingChats, offTrackingChats, removeChatFromFb, onTrackingRemovedChat, offTrackingRemovedChat, resetChats} from '../store/chats/action';
+import {useEffect, useState} from 'react';
+import {resetMessages} from '../store/message/action';
+ 
 function ChatList() {
+
+  useEffect (()=>{
+    dispatch(resetChats());
+    dispatch(resetMessages());
+  }, [])
 
   const dispatch = useDispatch();
   const ChatsList = useSelector(getChatList);
@@ -28,12 +24,22 @@ function ChatList() {
     const newChat = {
       name: value,
       id: nanoid(),
+      messages: [],
     }
+    
     if(value){
-      dispatch(addChat(newChat));
-      dispatch(addMessageByID(newChat));
+      dispatch(pushChatsToFb(newChat));
     }
-}
+  }
+
+    useEffect (() => {
+      dispatch(onTrackingChats);
+      dispatch(onTrackingRemovedChat);
+      return () => {
+        dispatch(offTrackingChats);
+        dispatch(offTrackingRemovedChat);
+      }
+    },[]);
 
     return (
         <div className="Chats">
@@ -42,17 +48,16 @@ function ChatList() {
           </Container>
           <AddChats onSaveChat={onSaveChat} />
           <Container className="ChatsList">
-          <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', height: 500 }} >
+          <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper", height: 500 }} >
               {       
                   ChatsList.map((item)=> 
-                    <ListItem key={item.id}>
-                      <Link to={`/Chat/id${item.id}`} className="chatsList_a">
+                    <ListItem key={item.key}>
+                      <Link to={`/Chat/${item.key}`} className="chatsList_a">
                         <ListItemText
                             primary={item.name}/>
                       </Link>
-                      <IconButton aria-label="delete" color='primary' onClick={() => {
-                          dispatch(delChat(item.id));
-                          dispatch(delMessageByID(item.id));
+                      <IconButton aria-label="delete" color="primary" onClick={() => {
+                          dispatch(removeChatFromFb(item.key));
                         }}>
                         <DeleteIcon />
                       </IconButton>

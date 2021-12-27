@@ -1,47 +1,41 @@
-import { ADD_MESSAGE, ADD_MESSAGE_ID, DEL_MESSAGE_ID } from "./action";
+import { ADD_MESSAGE, ADD_MESSAGE_ID, DEL_MESSAGE_ID, RESET_MESSAGES, RESET_CURRENT_MESSAGES} from './action';
 
 const initialState ={
-    messageList: {
-        id1: {
-          name: "Артур",
-          messages: [{ text: "Это первый чат", author: 'user'},{ text: "Замечательно!", author: 'robot'}],
-        },
-        id2: {
-          name: "Крис",
-          messages: [{ text: "Это второй чат!", author: 'robot'},{ text: "ОК", author: 'user'}],
-        },
-        id3: {
-            name: "Майк",
-            messages: [{ text: "Это третий чат!!", author: 'robot'}],
-          },
-      },
+    messageList: {}
 };
 
 const chatsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE: {
-            const currentId = action.chatid.id;
             const copyState = state;
-            copyState.messageList[currentId].messages.push({
+            copyState.messageList[action.chatid.id].messages.push({
                 text: action.chatid.message,
                 author: action.chatid.author,
             })
             return copyState;
         }
         case ADD_MESSAGE_ID: {
-            const currentId = 'id' + action.idChat;
             const copyState = state;
-            copyState.messageList[currentId] = {
-                name: action.author,
+            copyState.messageList[action.chat.idChat] = {
+                name: action.chat.author,
                 messages: [],
+                idChat: action.chat.idChat,
             }
             return copyState;
         }
         case DEL_MESSAGE_ID: {
-            const currentId = 'id' + action.idChat;
             const copyState = state;
-            delete copyState.messageList[currentId];
-            console.log(copyState);
+            delete copyState.messageList[action.idChat];
+            return copyState;
+        }
+        case RESET_MESSAGES: {
+            return {
+                messageList: action.message,
+            }
+        }
+        case RESET_CURRENT_MESSAGES: {
+            const copyState = state;
+            copyState.messageList[action.id].messages = action.message;
             return copyState;
         }
         default:
